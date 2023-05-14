@@ -10,7 +10,7 @@ import org.apache.hadoop.mapreduce.lib.input.*;
 import org.apache.hadoop.mapreduce.lib.output.*;
 import org.apache.hadoop.util.GenericOptionsParser;
 
-public class IMDB20201003
+public class IMDBStudent20201003
 {
     public static class IMDBMapper extends Mapper<Object, Text, Text, IntWritable>
     {
