@@ -56,7 +56,7 @@ public class IMDBStudent20201003
             System.exit(2);
         }
         Job job = new Job(conf, "imdb");
-        job.setJarByClass(IMDB.class);
+        job.setJarByClass(IMDBStudent20201003.class);
         job.setMapperClass(IMDBMapper.class);
         job.setCombinerClass(IMDBReducer.class);
         job.setReducerClass(IMDBReducer.class);
