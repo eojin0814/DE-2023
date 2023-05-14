@@ -59,8 +59,6 @@ public class IMDBStudent20201003
         job.setJarByClass(IMDB.class);
         job.setMapperClass(IMDBMapper.class);
         job.setCombinerClass(IMDBReducer.class);
-        // MAP DEBUGING
-        //job.setNumReduceTasks(0);
         job.setReducerClass(IMDBReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
