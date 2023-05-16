@@ -17,12 +17,12 @@ import org.apache.hadoop.util.GenericOptionsParser;
 
 public class UBERStudent20201003
 {
-	public static class UBERMapper extends Mapper<IntWritable,Text, Text,Text>
+	public static class UBERMapper extends Mapper<LongWritable,Text, Text,Text>
 	{
-		private final static IntWritable one = new IntWritable(1);
+	
 		private Text word = new Text();
 		private Text word2 = new Text();
-		public void map(IntWritable key, Text value, Context context) throws IOException, InterruptedException
+		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException
 		{
 			String s = value.toString();
 			String[] token = s.split(",");
@@ -114,7 +114,7 @@ public class UBERStudent20201003
 		FileInputFormat.addInputPath(job, new Path(otherArgs[0]));
 		FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
 		FileSystem.get(job.getConfiguration()).delete( new Path(otherArgs[1]), true);
-		System.exit(job.waitForCompletion(true) ? 0 : 1);
+		System.exit(job.waitForCompletion(true) ? 0:1);
 	}
 }
 
