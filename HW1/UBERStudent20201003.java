@@ -17,12 +17,12 @@ import org.apache.hadoop.util.GenericOptionsParser;
 
 public class UBERStudent20201003
 {
-	public static class UBERMapper extends Mapper<LongWritable,Text, Text,Text>
+	public static class UBERMapper extends Mapper<Object,Text, Text,Text>
 	{
 	
 		private Text word = new Text();
 		private Text word2 = new Text();
-		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException
+		public void map(Object key, Text value, Context context) throws IOException, InterruptedException
 		{
 			String s = value.toString();
 			String[] token = s.split(",");
@@ -62,8 +62,8 @@ public class UBERStudent20201003
 			
 			}
 
-			word.set(token[0] + "," + day);
-			word2.set(token[2] + "," + token[3]);
+			word.set(token[0]+","+day);
+			word2.set(token[2]+","+token[3]);
 			context.write(word,word2);
 
 
@@ -91,7 +91,9 @@ public class UBERStudent20201003
 				sum_t+=Integer.parseInt(st.nextToken());
 			}
 			
-			result.set(sum_t + "," + sum_v);
+			String t = Integer.toString(sum_t);
+			String v = Integer.toString(sum_v);	
+			result.set(t+","+v);
 			context.write(key, result);
 		}
 	}
@@ -110,7 +112,7 @@ public class UBERStudent20201003
 		job.setCombinerClass(UBERReducer.class);
 		job.setReducerClass(UBERReducer.class);
 		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(IntWritable.class);
+		job.setOutputValueClass(Text.class);
 		FileInputFormat.addInputPath(job, new Path(otherArgs[0]));
 		FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
 		FileSystem.get(job.getConfiguration()).delete( new Path(otherArgs[1]), true);
