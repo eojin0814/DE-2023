@@ -63,7 +63,7 @@ public class UBERStudent20201003
 			}
 
 			word.set(token[0]+","+day);
-			word2.set(token[2]+","+token[3]);
+			word2.set(token[3]+","+token[2]);
 			context.write(word,word2);
 
 
@@ -85,15 +85,15 @@ public class UBERStudent20201003
 			
 			for (Text val : values)
 			{
-				String word = val.toString();
-				StringTokenizer st = new StringTokenizer(word, ",");
-				sum_v+=Integer.parseInt(st.nextToken());
+				
+				StringTokenizer st = new StringTokenizer(val.toString(), ",");
 				sum_t+=Integer.parseInt(st.nextToken());
+				sum_v+=Integer.parseInt(st.nextToken());
 			}
 			
-			String t = Integer.toString(sum_t);
-			String v = Integer.toString(sum_v);	
-			result.set(t+","+v);
+			//String t = Integer.toString(sum_t);
+			//String v = Integer.toString(sum_v);	
+			result.set(sum_v+","+sum_t);
 			context.write(key, result);
 		}
 	}
