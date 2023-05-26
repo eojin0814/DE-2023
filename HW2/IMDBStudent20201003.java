@@ -128,7 +128,7 @@ public class IMDBStudent20201003
         job1.setMapOutputValueClass(IntWritable.class);
         job1.setOutputKeyClass(Text.class);
         job1.setOutputValueClass(DoubleWritable.class);
-        job1.setJarByClass(TopMovies.class);
+        job1.setJarByClass(IMDBStudent20201003.class);
         
         job1.setInputFormatClass(TextInputFormat.class);
         job1.setOutputFormatClass(TextOutputFormat.class);
@@ -149,7 +149,7 @@ public class IMDBStudent20201003
             job2.setMapOutputValueClass(Text.class);
             job2.setOutputKeyClass(Text.class);
             job2.setOutputValueClass(DoubleWritable.class);
-            job2.setJarByClass(TopMovies.class);
+            job2.setJarByClass(IMDBStudent20201003.class);
 
 
             job2.setInputFormatClass(TextInputFormat.class);
