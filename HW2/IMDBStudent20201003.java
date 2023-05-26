@@ -109,7 +109,7 @@ public class IMDBStudent20201003
             	ratingAvg.set(ele.getValue());
             	context.write(movie, ratingAvg);
             	count++;
-            	if (count == 10){
+            	if (count == k){
             		break;
             	}
             }
