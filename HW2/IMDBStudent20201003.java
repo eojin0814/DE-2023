@@ -25,6 +25,7 @@ import org.omg.CORBA.PUBLIC_MEMBER;
 
 public class IMDBStudent20201003
 {
+    int k=0;
     public static class Mapper1 extends Mapper <LongWritable, Text, Text, IntWritable> {
 		private Text movie = new Text();
 		private static IntWritable rating = new IntWritable();
@@ -117,6 +118,7 @@ public class IMDBStudent20201003
     
 	public static void main( String[] args ) throws Exception
     {
+	
         Configuration config = new Configuration();
         Job job1 = Job.getInstance(config, "Top10Movies");
         
@@ -133,7 +135,7 @@ public class IMDBStudent20201003
         
         FileInputFormat.addInputPath(job1, new Path(args[0]));
         FileOutputFormat.setOutputPath(job1, new Path(args[1]));
-        
+	k = Integer.parseInt(new Path(args[2]));
         boolean job1Complete = job1.waitForCompletion(true);
         
         if (job1Complete){
