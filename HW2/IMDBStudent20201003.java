@@ -22,10 +22,11 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.omg.CORBA.PRIVATE_MEMBER;
 import org.omg.CORBA.PUBLIC_MEMBER;
+import org.apache.hadoop.util.GenericOptionsParser;
 
 public class IMDBStudent20201003
 {
-    int k=0;
+    static int k=0;
     public static class Mapper1 extends Mapper <LongWritable, Text, Text, IntWritable> {
 		private Text movie = new Text();
 		private static IntWritable rating = new IntWritable();
@@ -85,8 +86,22 @@ public class IMDBStudent20201003
 		}
     	
     }
+   
+    
+    
     
     public static class Reducer2 extends Reducer<IntWritable, Text, Text, DoubleWritable> {
+
+
+
+	protected void setup(Context context) throws IOException, InterruptedException {
+
+        	k = context.getConfiguration().getInt("topk", -1);
+    	}
+
+
+
+
     	private static Map<String, Double> ratingMap = new HashMap<String, Double>();
     	private Text movie = new Text();
     	private static DoubleWritable ratingAvg = new DoubleWritable();
@@ -135,15 +150,21 @@ public class IMDBStudent20201003
         
         FileInputFormat.addInputPath(job1, new Path(args[0]));
         FileOutputFormat.setOutputPath(job1, new Path(args[1]));
-	k = Integer.parseInt(new Path(args[2]));
+
         boolean job1Complete = job1.waitForCompletion(true);
         
         if (job1Complete){
         	Configuration config2 = new Configuration();
             Job job2 = Job.getInstance(config2, "Top10Movies");
 
+    	    String[] arg = new GenericOptionsParser(config2,args).getRemainingArgs();
+        
+	    Path path = new Path(arg[2]);
+        
+	    k = Integer.parseInt(path.toString());
 
-            job2.setMapperClass(Mapper2.class);
+    	    config2.setInt("topk", k);
+	    job2.setMapperClass(Mapper2.class);
             job2.setReducerClass(Reducer2.class);
             job2.setMapOutputKeyClass(IntWritable.class);
             job2.setMapOutputValueClass(Text.class);
@@ -157,7 +178,7 @@ public class IMDBStudent20201003
 
             FileInputFormat.addInputPath(job2, new Path(args[1]));
             FileOutputFormat.setOutputPath(job2, new Path(args[2]));
-
+	    
             job2.waitForCompletion(true);
         }
     }
