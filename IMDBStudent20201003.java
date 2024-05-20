@@ -78,3 +78,4 @@ public class IMDBStudent20201003 {
         }
     }
 }
+//spark-submit --class IMDBStudent20201003 --master local[4] IMDBStudent20201003.jar movies.dat ratings.dat 10
