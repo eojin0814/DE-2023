@@ -8,15 +8,14 @@ import java.util.List;
 
 public class IMDBStudent20201003 {
     public static void main(String[] args) {
-        if (args.length < 4) {
-            System.err.println("Usage: IMDBStudent20201003 <movies.dat> <ratings.dat> <k> <output path>");
+        if (args.length < 3) {
+            System.err.println("Usage: IMDBStudent20201003 <movies.dat> <ratings.dat> <k>");
             System.exit(-1);
         }
 
         String moviesPath = args[0];
         String ratingsPath = args[1];
         int k = Integer.parseInt(args[2]);
-        String outputPath = args[3];
 
         // Spark 세션 생성
         SparkSession spark = SparkSession.builder().appName("TopKFantasyMovies").getOrCreate();
@@ -70,5 +69,12 @@ public class IMDBStudent20201003 {
 
         // Spark 세션 종료
         spark.stop();
+    }
+
+    static class Tuple2Comparator implements java.util.Comparator<Tuple2<String, Double>>, java.io.Serializable {
+        @Override
+        public int compare(Tuple2<String, Double> t1, Tuple2<String, Double> t2) {
+            return t2._2().compareTo(t1._2());
+        }
     }
 }
